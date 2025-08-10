@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace TestAPIJWT.Helpers
+namespace ECommerce_Api.Helpers
 {
     [Owned]
 

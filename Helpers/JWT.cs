@@ -1,4 +1,4 @@
-﻿namespace TestAPIJWT.Helpers
+﻿namespace ECommerce_Api.Helpers
 {
     public class JWT
     {
