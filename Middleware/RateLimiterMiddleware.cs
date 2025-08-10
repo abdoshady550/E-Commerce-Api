@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 
-namespace Asp.net_Web_Api.Meddlewares
+namespace ECommerce_Api.Meddlewares
 {
 
 

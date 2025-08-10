@@ -1,6 +1,6 @@
-﻿using Movie_Api.Handler;
+﻿using ECommerce_Api.Handler;
 
-namespace Movie_Api.Middleware
+namespace ECommerce_Api.Middleware
 {
     public class ErrorHandlingMiddleware
     {
@@ -25,11 +25,11 @@ namespace Movie_Api.Middleware
                 var errorResponse = error switch
                 {
                     ApiException e =>
-                        (e.StatusCode, APIRespone<object>.CreateError(e.Message)),
+                        (e.StatusCode, APIResponse<object>.CreateError(e.Message)),
                     KeyNotFoundException e =>
-                        (StatusCodes.Status404NotFound, APIRespone<object>.CreateError("Not found")),
+                        (StatusCodes.Status404NotFound, APIResponse<object>.CreateError("Not found")),
                     _ => (StatusCodes.Status500InternalServerError,
-                         APIRespone<object>.CreateError("An internal server error occurred."))
+                         APIResponse<object>.CreateError("An internal server error occurred."))
                 };
 
                 response.StatusCode = errorResponse.Item1;
