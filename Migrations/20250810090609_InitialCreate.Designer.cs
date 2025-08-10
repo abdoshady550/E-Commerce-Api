@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TestAPIJWT.Data;
+using ECommerce_Api.Data;
 
 #nullable disable
 
@@ -25,7 +25,7 @@ namespace ECommerce_Api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ECommerce.Models.BuyingRequestItem", b =>
+            modelBuilder.Entity("ECommerce_Api.Models.BuyingRequestItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,7 +51,7 @@ namespace ECommerce_Api.Migrations
                     b.ToTable("BuyingRequestItems");
                 });
 
-            modelBuilder.Entity("ECommerce.Models.Category", b =>
+            modelBuilder.Entity("ECommerce_Api.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,7 +71,7 @@ namespace ECommerce_Api.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ECommerce.Models.Product", b =>
+            modelBuilder.Entity("ECommerce_Api.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -261,7 +261,7 @@ namespace ECommerce_Api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TestAPIJWT.Model.Entities.AppUser", b =>
+            modelBuilder.Entity("ECommerce_Api.Model.Entities.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -344,7 +344,7 @@ namespace ECommerce_Api.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("TestAPIJWT.Model.Entities.BuyingRequest", b =>
+            modelBuilder.Entity("ECommerce_Api.Model.Entities.BuyingRequest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -370,15 +370,15 @@ namespace ECommerce_Api.Migrations
                     b.ToTable("BuyingRequests");
                 });
 
-            modelBuilder.Entity("ECommerce.Models.BuyingRequestItem", b =>
+            modelBuilder.Entity("ECommerce_Api.Models.BuyingRequestItem", b =>
                 {
-                    b.HasOne("TestAPIJWT.Model.Entities.BuyingRequest", "BuyingRequest")
+                    b.HasOne("ECommerce_Api.Model.Entities.BuyingRequest", "BuyingRequest")
                         .WithMany("Items")
                         .HasForeignKey("BuyingRequestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ECommerce.Models.Product", "Product")
+                    b.HasOne("ECommerce_Api.Models.Product", "Product")
                         .WithMany("BuyingRequestItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -389,9 +389,9 @@ namespace ECommerce_Api.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ECommerce.Models.Product", b =>
+            modelBuilder.Entity("ECommerce_Api.Models.Product", b =>
                 {
-                    b.HasOne("ECommerce.Models.Category", "Category")
+                    b.HasOne("ECommerce_Api.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -401,13 +401,13 @@ namespace ECommerce_Api.Migrations
 
             modelBuilder.Entity("ECommerce_Api.Models.CartItem", b =>
                 {
-                    b.HasOne("ECommerce.Models.Product", "Product")
+                    b.HasOne("ECommerce_Api.Models.Product", "Product")
                         .WithMany("CartItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TestAPIJWT.Model.Entities.AppUser", "User")
+                    b.HasOne("ECommerce_Api.Model.Entities.AppUser", "User")
                         .WithMany("CartItems")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -429,7 +429,7 @@ namespace ECommerce_Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("TestAPIJWT.Model.Entities.AppUser", null)
+                    b.HasOne("ECommerce_Api.Model.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -438,7 +438,7 @@ namespace ECommerce_Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("TestAPIJWT.Model.Entities.AppUser", null)
+                    b.HasOne("ECommerce_Api.Model.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -453,7 +453,7 @@ namespace ECommerce_Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TestAPIJWT.Model.Entities.AppUser", null)
+                    b.HasOne("ECommerce_Api.Model.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -462,16 +462,16 @@ namespace ECommerce_Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("TestAPIJWT.Model.Entities.AppUser", null)
+                    b.HasOne("ECommerce_Api.Model.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TestAPIJWT.Model.Entities.BuyingRequest", b =>
+            modelBuilder.Entity("ECommerce_Api.Model.Entities.BuyingRequest", b =>
                 {
-                    b.HasOne("TestAPIJWT.Model.Entities.AppUser", "User")
+                    b.HasOne("ECommerce_Api.Model.Entities.AppUser", "User")
                         .WithMany("BuyingRequests")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -480,26 +480,26 @@ namespace ECommerce_Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ECommerce.Models.Category", b =>
+            modelBuilder.Entity("ECommerce_Api.Models.Category", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("ECommerce.Models.Product", b =>
+            modelBuilder.Entity("ECommerce_Api.Models.Product", b =>
                 {
                     b.Navigation("BuyingRequestItems");
 
                     b.Navigation("CartItems");
                 });
 
-            modelBuilder.Entity("TestAPIJWT.Model.Entities.AppUser", b =>
+            modelBuilder.Entity("ECommerce_Api.Model.Entities.AppUser", b =>
                 {
                     b.Navigation("BuyingRequests");
 
                     b.Navigation("CartItems");
                 });
 
-            modelBuilder.Entity("TestAPIJWT.Model.Entities.BuyingRequest", b =>
+            modelBuilder.Entity("ECommerce_Api.Model.Entities.BuyingRequest", b =>
                 {
                     b.Navigation("Items");
                 });

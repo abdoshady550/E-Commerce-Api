@@ -367,3 +367,4 @@ appsettings.Development.json
 /Data/Configration/UserConfigration.cs
 *.cs
 /Properties/launchSettings.json
+/Migrations/20250810100857_SeedData.Designer.cs
