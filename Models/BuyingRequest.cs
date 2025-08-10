@@ -1,6 +1,6 @@
-﻿using ECommerce.Models;
+﻿using ECommerce_Api.Models;
 
-namespace TestAPIJWT.Model.Entities
+namespace ECommerce_Api.Model.Entities
 {
     public class BuyingRequest
     {

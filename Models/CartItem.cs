@@ -1,6 +1,6 @@
-﻿using ECommerce.Models;
+﻿using ECommerce_Api.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using TestAPIJWT.Model.Entities;
+using ECommerce_Api.Model.Entities;
 using static Azure.Core.HttpHeader;
 
 namespace ECommerce_Api.Models

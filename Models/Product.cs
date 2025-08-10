@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ECommerce_Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECommerce.Models;
+namespace ECommerce_Api.Models;
 
 public partial class Product
 {

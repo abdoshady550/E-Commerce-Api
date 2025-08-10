@@ -1,8 +1,8 @@
 ﻿using ECommerce_Api.Models;
 using Microsoft.AspNetCore.Identity;
-using TestAPIJWT.Helpers;
+using ECommerce_Api.Helpers;
 
-namespace TestAPIJWT.Model.Entities
+namespace ECommerce_Api.Model.Entities
 {
     public class AppUser : IdentityUser
     {
