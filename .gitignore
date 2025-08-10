@@ -364,3 +364,5 @@ FodyWeavers.xsd
 #appsettings
 appsettings.json
 appsettings.Development.json
+/Data/Configration/UserConfigration.cs
+*.cs

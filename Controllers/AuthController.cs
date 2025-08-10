@@ -1,35 +1,33 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-
-using TestAPIJWT.Helpers;
-using TestAPIJWT.Model.Dtos;
-using TestAPIJWT.Model.Entities;
-
-namespace TestAPIJWT.Controllers
+﻿namespace ECommerce_Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AuthController : ControllerBase
-    {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IConfiguration _configuration;
-        private readonly JWT _jwtSettings;
-        public AuthController(UserManager<AppUser> userManager,
-            RoleManager<IdentityRole> roleManager,
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Security.Claims;
+    using System.Text;
+    using ECommerce_Api.Handler;
+    using ECommerce_Api.Helpers;
+    using ECommerce_Api.Model.Dtos;
+    using ECommerce_Api.Model.Entities;
+    using ECommerce_Api.Utilities;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
+    using Microsoft.IdentityModel.Tokens;
 
-             IOptions<JWT> jwtSettings)
-        {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _jwtSettings = jwtSettings.Value;
-        }
+    [Route("/api/[controller]")]
+    [ApiController]
+    public class AuthController(UserManager<AppUser> userManager,
+        RoleManager<IdentityRole> roleManager,
+
+         IOptions<JWT> jwtSettings) : ControllerBase
+    {
+        private readonly UserManager<AppUser> _userManager = userManager;
+
+        private readonly RoleManager<IdentityRole> _roleManager = roleManager;
+
+        private readonly JWT _jwtSettings = jwtSettings.Value;
+
         [HttpPost("Register")]
         public async Task<ActionResult> Register(RegisterDto dto)
         {
@@ -41,17 +39,15 @@ namespace TestAPIJWT.Controllers
             var ressult = await _userManager.CreateAsync(user, dto.Password);
             if (!ressult.Succeeded)
             {
-                return BadRequest(ressult.Errors);
+                return BadRequest(APIResponse<object>.CreateError(
+                                  massage: $"{MassageResponse.FailedRequest}",
+                                  error: ressult.Errors
+                                  ));
             }
-            if (!await _roleManager.RoleExistsAsync(dto.Role))
-            {
-                await _roleManager.CreateAsync(new IdentityRole(dto.Role));
-            }
-            await _userManager.AddToRoleAsync(user, dto.Role);
 
-
-            return Ok(new { user.UserName, Role = dto.Role });
+            return Ok(APIResponse<object>.CreateSuccess(new { user.UserName }));
         }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
@@ -59,7 +55,9 @@ namespace TestAPIJWT.Controllers
 
             if (!await _userManager.CheckPasswordAsync(user, dto.Password) || user == null)
             {
-                return Unauthorized(new { message = "Invalid username or password" }); ;
+                return Unauthorized(APIResponse<object>.CreateError(
+                    massage: $"{MassageResponse.Unauthorized}",
+                    error: new List<IdentityError>()));
             }
             var roles = await _userManager.GetRolesAsync(user);
 
@@ -82,18 +80,18 @@ namespace TestAPIJWT.Controllers
                 signingCredentials: creds
             );
 
-            return Ok(new
+            return Ok(APIResponse<object>.CreateSuccess(new
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
                 ID = user.Id,
                 username = user.UserName,
                 Role = roles,
                 expiration = token.ValidTo
-            });
-
+            }));
         }
 
-
     }
+
+
 
 }
