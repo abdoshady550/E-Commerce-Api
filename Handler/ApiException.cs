@@ -1,4 +1,4 @@
-﻿namespace Movie_Api.Handler
+﻿namespace ECommerce_Api.Handler
 {
 
     public class ApiException : Exception
