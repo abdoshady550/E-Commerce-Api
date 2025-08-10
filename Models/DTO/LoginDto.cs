@@ -1,4 +1,4 @@
-﻿namespace TestAPIJWT.Model.Dtos
+﻿namespace ECommerce_Api.Model.Dtos
 {
     public class LoginDto
     {
