@@ -2,7 +2,7 @@
 using ECommerce_Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TestAPIJWT.Model.Entities;
+using ECommerce_Api.Model.Entities;
 
 namespace ECommerce_Api.Data.Configration
 {

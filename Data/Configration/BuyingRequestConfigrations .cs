@@ -3,7 +3,7 @@
     using System.Reflection.Emit;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using TestAPIJWT.Model.Entities;
+    using ECommerce_Api.Model.Entities;
 
     public class BuyingRequestConfigrations : IEntityTypeConfiguration<BuyingRequest>
     {

@@ -1,10 +1,9 @@
-﻿using ECommerce.Models;
-using ECommerce_Api.Models;
+﻿using ECommerce_Api.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TestAPIJWT.Model.Entities;
+using ECommerce_Api.Model.Entities;
 
-namespace TestAPIJWT.Data
+namespace ECommerce_Api.Data
 {
     public class AppDbContext : IdentityDbContext<AppUser>
     {
