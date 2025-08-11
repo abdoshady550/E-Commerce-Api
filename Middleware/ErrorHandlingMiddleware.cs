@@ -19,6 +19,8 @@ namespace ECommerce_Api.Middleware
             }
             catch (Exception error)
             {
+                Console.WriteLine(error.ToString());
+
                 var response = context.Response;
                 response.ContentType = "application/json";
 
