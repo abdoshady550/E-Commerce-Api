@@ -13,7 +13,9 @@
                    .WithMany(u => u.BuyingRequests)
                    .HasForeignKey(br => br.UserId)
                    .OnDelete(DeleteBehavior.Cascade);
-            // Static CreatedAt value
+
+
+
             DateTime fixedCreatedAt = new DateTime(2025, 8, 10, 0, 0, 0, DateTimeKind.Utc);
             var buyingRequest = new BuyingRequest
             {
