@@ -126,7 +126,7 @@ namespace ECommerce_Api.Controllers
             if (!string.IsNullOrWhiteSpace(dto.Description))
                 product.Description = dto.Description;
 
-            if (dto.Price.HasValue)
+            if (dto.Price != 0)
                 product.Price = dto.Price;
 
             if (dto.CategoryId.HasValue)
