@@ -365,7 +365,10 @@ FodyWeavers.xsd
 appsettings.json
 appsettings.Development.json
 /Data/Configration/UserConfigration.cs
-*.cs
+
 /Properties/launchSettings.json
 /Migrations/20250810100857_SeedData.Designer.cs
 /Migrations/AppDbContextModelSnapshot.cs
+/Data/Configration/IdentityRoleConfigrations.cs
+/Data/Configration/IdentityUserRoleConfigrations.cs
+/Migrations
