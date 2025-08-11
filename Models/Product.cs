@@ -13,7 +13,7 @@ public partial class Product
     public string? Description { get; set; }
 
     [Precision(18, 2)]
-    public decimal? Price { get; set; }
+    public decimal Price { get; set; }
 
 
     public byte[]? Image { get; set; }

@@ -11,6 +11,7 @@ namespace ECommerce_Api.Model.Entities
         public string? Address { get; set; }
 
         public string Role { get; set; } = "Client";
+        public Cart Cart { get; set; }
         public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
         public ICollection<BuyingRequest> BuyingRequests { get; set; } = new List<BuyingRequest>();
 
