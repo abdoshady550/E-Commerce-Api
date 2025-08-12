@@ -1,0 +1,354 @@
+@page "/products"
+@inject HttpClient Http
+
+<!-- العنوان -->
+<div class="page-header">
+	<h2 class="fw-bold text-center">🛍️ منتجاتنا</h2>
+</div>
+
+
+<!-- البحث -->
+<div class="search-container text-center my-4">
+	<input @bind="SearchTerm" @bind:event="oninput"
+		   class="form-control search-box"
+		   placeholder="🔍 ابحث عن منتج..." />
+</div>
+
+<!-- المنتجات / Skeleton -->
+<div class="container products-wrapper">
+	@if (isLoading)
+	{
+		<div class="product-grid">
+			@for (int i = 0; i < 8; i++)
+			{
+				<div class="product-card skeleton-card">
+					<div class="skeleton skeleton-img"></div>
+					<div class="product-body">
+						<div class="skeleton skeleton-title"></div>
+						<div class="skeleton skeleton-text"></div>
+						<div class="skeleton skeleton-price"></div>
+						<div class="skeleton skeleton-btn"></div>
+					</div>
+				</div>
+			}
+		</div>
+	}
+	else if (!isLoading && (filteredProducts == null || !filteredProducts.Any()))
+	{
+		<div class="text-center text-muted">لا توجد منتجات مطابقة</div>
+	}
+	else
+	{
+		<div class="product-grid">
+			@foreach (var product in filteredProducts)
+			{
+				<div class="product-card shadow-sm">
+					@if (!string.IsNullOrEmpty(product.Image))
+					{
+						<div class="product-image-container">
+							<img src="data:image/jpeg;base64,@product.Image" class="product-image" alt="@product.Name" />
+						</div>
+					}
+					<div class="product-body">
+						<h6 class="product-title">@product.Name</h6>
+						<p class="product-desc">@product.Description</p>
+						<div class="price-tag">
+							$ @product.Price
+						</div>
+						<NavLink href="@($"/productdetails/{product.Id}")" class="btn btn-details w-100 mt-2">
+							عرض التفاصيل
+						</NavLink>
+					</div>
+				</div>
+			}
+		</div>
+	}
+</div>
+
+<style>
+	/* Skeleton Loading Effect */
+	.skeleton {
+		background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+		background-size: 200% 100%;
+		animation: skeleton-loading 1.5s infinite;
+		border-radius: 6px;
+	}
+
+
+	/* Skeleton card layout */
+	.skeleton-card {
+		border-radius: 12px;
+		overflow: hidden;
+		background: white;
+		padding: 10px;
+	}
+
+	.skeleton-img {
+		height: 160px;
+		width: 100%;
+		margin-bottom: 10px;
+	}
+
+	.skeleton-title {
+		height: 16px;
+		width: 80%;
+		margin: 8px auto;
+	}
+
+	.skeleton-text {
+		height: 14px;
+		width: 90%;
+		margin: 6px auto;
+	}
+
+	.skeleton-price {
+		height: 16px;
+		width: 40%;
+		margin: 8px auto;
+	}
+
+	.skeleton-btn {
+		height: 30px;
+		width: 60%;
+		margin: 12px auto 0 auto;
+		border-radius: 30px;
+	}
+
+	/* الهيدر */
+	.page-header {
+		background: linear-gradient(90deg, #36d1dc, #5b86e5);
+		color: white;
+		padding: 30px 0;
+		border-radius: 0 0 20px 20px;
+		box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+	}
+
+		.page-header h2 {
+			margin: 0;
+			font-size: 1.8rem;
+		}
+
+	/* البحث */
+	/* البحث */
+	.search-container {
+		max-width: 500px;
+		margin: 0 auto;
+		position: relative;
+	}
+
+	.search-box {
+		height: 50px;
+		font-size: 1.05rem;
+		border-radius: 40px;
+		padding: 10px 20px 10px 50px; /* padding أكبر من اليسار عشان الأيقونة */
+		border: 1px solid #ccc;
+		background-color: #fff;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+		transition: all 0.3s ease;
+	}
+
+		.search-box::placeholder {
+			color: #888;
+			font-size: 0.95rem;
+		}
+
+		.search-box:focus {
+			outline: none;
+			box-shadow: 0 6px 14px rgba(54, 209, 220, 0.35);
+			border-color: #36d1dc;
+			transform: scale(1.02);
+		}
+
+	.search-icon {
+		position: absolute;
+		top: 50%;
+		left: 18px;
+		transform: translateY(-50%);
+		color: #36d1dc;
+		font-size: 1.2rem;
+		pointer-events: none;
+	}
+
+
+	/* المسافة قبل المنتجات */
+	.products-wrapper {
+		padding-top: 40px;
+		padding-bottom: 40px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	.product-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 20px;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.product-card {
+		background: #fff;
+		border-radius: 12px;
+		overflow: hidden;
+		transition: transform 0.25s ease, box-shadow 0.25s ease;
+	}
+
+		.product-card:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+		}
+
+	.product-image-container {
+		overflow: hidden;
+		height: 160px;
+	}
+
+	.product-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.3s ease;
+	}
+
+	.product-card:hover .product-image {
+		transform: scale(1.07);
+	}
+
+	.product-body {
+		padding: 12px;
+		text-align: center;
+	}
+
+	.product-title {
+		font-weight: bold;
+		margin-bottom: 4px;
+		font-size: 1rem;
+	}
+
+	.product-desc {
+		font-size: 0.85rem;
+		color: #6c757d;
+		min-height: 38px;
+		margin-bottom: 8px;
+	}
+
+	.price-tag {
+		background-color: #e8f7e5;
+		color: #28a745;
+		font-weight: bold;
+		padding: 6px 12px;
+		border-radius: 30px;
+		display: inline-block;
+		margin-bottom: 6px;
+		transition: background-color 0.3s ease;
+	}
+
+	.product-card:hover .price-tag {
+		background-color: #d4f3d0;
+	}
+
+	.btn-details {
+		background: linear-gradient(90deg, #36d1dc, #5b86e5);
+		color: white;
+		font-weight: bold;
+		border: none;
+		padding: 6px 12px;
+		border-radius: 30px;
+		font-size: 0.85rem;
+		transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+	}
+
+		.btn-details:hover {
+			opacity: 0.95;
+			transform: translateY(-2px) scale(1.02);
+			box-shadow: 0 5px 15px rgba(91, 134, 229, 0.4);
+			color: white;
+		}
+</style>
+
+@code {
+	private List<ProductDto> products = null;
+	private List<ProductDto> filteredProducts = null;
+	private bool isLoading = true;
+
+	private string SearchTerm
+	{
+		get => searchTerm;
+		set
+		{
+			searchTerm = value;
+			// ما ننفذش البحث أثناء التحميل
+			if (!isLoading)
+			{
+				ApplySearch();
+			}
+		}
+	}
+	private string searchTerm = "";
+
+	protected override async Task OnInitializedAsync()
+	{
+		isLoading = true; // تأكد إنها true قبل التحميل
+		StateHasChanged();
+
+		try
+		{
+			// await Task.Delay(10); محاكاة تأخير لو بتحب تجرب
+			var response = await Http.GetFromJsonAsync<ApiResponse>("api/products");
+
+			// تأكد إنك تتعامل مع nulls بصورة آمنة
+			products = response?.Data?.Items?.Values ?? new List<ProductDto>();
+			filteredProducts = products.ToList();
+		}
+		catch (Exception ex)
+		{
+			// لو حصل خطأ أبقي المنتج فاضية عشان يظهر رسالة لا توجد منتجات
+			products = new List<ProductDto>();
+			filteredProducts = products;
+			// هنا ممكن تعمل logging لو عايز
+		}
+		finally
+		{
+			isLoading = false;
+			StateHasChanged();
+		}
+	}
+
+	private void ApplySearch()
+	{
+		if (products == null)
+		{
+			filteredProducts = new List<ProductDto>();
+			return;
+		}
+
+		if (string.IsNullOrWhiteSpace(SearchTerm))
+		{
+			filteredProducts = products.ToList();
+		}
+		else
+		{
+			filteredProducts = products
+				.Where(p => (!string.IsNullOrEmpty(p.Name) && p.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)) ||
+							(!string.IsNullOrEmpty(p.Description) && p.Description.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)))
+				.ToList();
+		}
+	}
+
+	// DTOs كما عندك
+	public class ApiResponse { public DataContainer Data { get; set; } }
+	public class DataContainer { public ItemsContainer Items { get; set; } }
+	public class ItemsContainer
+	{
+		[System.Text.Json.Serialization.JsonPropertyName("$values")]
+		public List<ProductDto> Values { get; set; }
+	}
+	public class ProductDto
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public string Description { get; set; }
+		public decimal Price { get; set; }
+		public string Image { get; set; }
+	}
+}

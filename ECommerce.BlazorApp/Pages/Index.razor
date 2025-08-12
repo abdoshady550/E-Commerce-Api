@@ -1,0 +1,56 @@
+﻿@page "/"
+
+<div class="welcome-container d-flex flex-column justify-content-center align-items-center text-center">
+	<h1 class="display-1 fw-bold mb-4">👋 مرحبًا بك في متجرنا الإلكتروني!</h1>
+	<p class="lead text-muted fs-3 mb-5">
+		اكتشف أفضل المنتجات بأفضل الأسعار. تسوق بسهولة وراحة.
+	</p>
+	<NavLink href="/products" class="btn btn-gradient btn-lg px-5 py-4 shadow-lg">
+		عرض المنتجات
+	</NavLink>
+</div>
+
+<style>
+	html, body {
+		height: 100%;
+		margin: 0;
+	}
+
+	.welcome-container {
+		height: 100vh;
+		background: linear-gradient(135deg, #f8f9fa, #e3f2fd);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		text-align: center;
+		padding: 0 20px;
+	}
+
+	h1 {
+		font-size: 4rem;
+	}
+
+	p {
+		font-size: 1.5rem;
+		max-width: 800px;
+	}
+
+	.btn-gradient {
+		background: linear-gradient(90deg, #007bff, #00b4d8);
+		color: white;
+		border: none;
+		border-radius: 40px;
+		font-size: 1.5rem;
+		font-weight: bold;
+		padding: 1rem 3rem; /* زيادة حجم الزر */
+		min-width: 250px; /* عرض ثابت أكبر */
+		text-align: center;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+		.btn-gradient:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+		}
+</style>
