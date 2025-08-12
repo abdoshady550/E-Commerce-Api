@@ -24,7 +24,7 @@ namespace ECommerce_Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts(
                int page = 1,
-               int pageSize = 10,
+               int pageSize = 20,
                string? search = null,
                int? categoryId = null)
         {
