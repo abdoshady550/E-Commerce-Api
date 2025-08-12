@@ -24,7 +24,7 @@ namespace ECommerce_Api.Data.Configration
         new Cart
         {
             Id = 1,
-            UserId = "1", // لازم يكون نفس Id للمستخدم في جدول AspNetUsers
+            UserId = "1",
         },
         new Cart
         {

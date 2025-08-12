@@ -372,3 +372,4 @@ appsettings.Development.json
 /Data/Configration/IdentityRoleConfigrations.cs
 /Data/Configration/IdentityUserRoleConfigrations.cs
 /Migrations
+/.config
