@@ -63,7 +63,7 @@ Postman helps you explore, debug, and visualize responses for your requests.
 - Category: Add, Update, Delete, Get All, Get By Id
 - Products: Add, Edit, Delete, Pagination, Search
 - Cart: Get, Add, Delete
-- Buying Request: Get Requests
+- Buying Request: (Get, Add, Delete) Requests
 
 #### 🖼️ Sample Postman Response
 
